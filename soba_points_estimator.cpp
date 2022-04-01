@@ -1,6 +1,7 @@
 #include "soba_points_estimator.h"
 #include "Eigen/Sparse"
 #include "Eigen/SparseQR"
+#include <iostream>
 
 SobaPointsEstimator::SobaPointsEstimator(PointsEstimator::Ptr initial_points_estimator)
     : initial_points_estimator_{initial_points_estimator}
