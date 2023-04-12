@@ -1,5 +1,5 @@
 #include "calibrated_opencv_camera.h"
-#include "lab_8.h"
+#include "lab_vo.h"
 #include <iostream>
 
 
@@ -11,7 +11,7 @@ int main()
     constexpr int camera_id = 0;
     auto camera = std::make_shared<CalibratedOpencvCamera>(camera_id);
 
-    Lab8 lab(camera);
+    LabVO lab(camera);
     lab.run();
   }
   catch (const std::exception& e)

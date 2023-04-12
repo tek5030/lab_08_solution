@@ -1,4 +1,4 @@
-#include "lab_8.h"
+#include "lab_vo.h"
 
 #include "opencv2/core/eigen.hpp"
 #include "opencv2/highgui.hpp"
@@ -18,14 +18,14 @@
 using Clock = std::chrono::high_resolution_clock;
 using DurationInMs = std::chrono::duration<double, std::milli>;
 
-Lab8::Lab8(std::shared_ptr<CalibratedCamera> cam)
+LabVO::LabVO(std::shared_ptr<CalibratedCamera> cam)
     : cam_{std::move(cam)}
     , detector_{cv::xfeatures2d::SURF::create(100, 4, 3, true)}
     , desc_extractor_{detector_}
     , matcher_{desc_extractor_->defaultNorm()}
 { }
 
-void Lab8::run()
+void LabVO::run()
 {
   // Create the 2d-2d relative pose estimator.
   // We will use this for map creation.
@@ -190,7 +190,7 @@ void Lab8::run()
   }
 }
 
-std::shared_ptr<Frame> Lab8::captureFrame()
+std::shared_ptr<Frame> LabVO::captureFrame()
 {
   cv::Mat distorted_image = cam_->captureImage();
 
