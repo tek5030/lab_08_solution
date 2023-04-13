@@ -16,6 +16,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 find_package(OpenCV 4 REQUIRED)
 find_package(Eigen3 3.3.4 REQUIRED)
 find_package(Sophus REQUIRED)
+find_package(tek5030 CONFIG REQUIRED OPTIONAL_COMPONENTS rs2)
 
 # We use the "OpenCV_LIBS" variable for backward compatibility with the old lab setup.
 if (NOT OpenCV_LIBS)
@@ -23,7 +24,8 @@ if (NOT OpenCV_LIBS)
 endif()
 
 # Add an executable target to the project with the specified source files.
-add_executable(${exe_name}
+add_executable(${exe_name})
+target_sources(${exe_name} PRIVATE
   lab_vo.h
   lab_vo.cpp
   pose_measurement.h
@@ -68,7 +70,20 @@ target_link_libraries(${exe_name}
   ${OpenCV_LIBS}
   Eigen3::Eigen
   Sophus::Sophus
+  tek5030::tek5030
   )
+
+if(TARGET tek5030::rs2)  #  if(tek5030_rs2_FOUND) does also work
+  message(STATUS "* Support for Intel® RealSense™ ENABLED")
+  target_compile_definitions(${exe_name} PUBLIC TEK5030_REALSENSE)
+  target_link_libraries(${exe_name} tek5030::rs2)
+  target_sources(${exe_name} PRIVATE
+    calibrated_realsense_camera.h
+    calibrated_realsense_camera.cpp
+    )
+else()
+  message(STATUS "* Support for Intel® RealSense™ DISABLED because component tek5030::rs2 was not found")
+endif()
 
 # Set properties for the executable target.
 set_target_properties(${exe_name} PROPERTIES
