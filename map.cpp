@@ -1,13 +1,13 @@
 #include "map.h"
 #include "Eigen/Dense"
 
-Map::Map(std::shared_ptr<Frame> frame_1,
-         std::shared_ptr<Frame> frame_2,
-         const std::vector<cv::Point3f>& world_points,
+Map::Map(std::shared_ptr<Frame> frame_1_in,
+         std::shared_ptr<Frame> frame_2_in,
+         const std::vector<cv::Point3f>& world_points_in,
          cv::Mat world_descriptors)
-    : frame_1{frame_1}
-    , frame_2{frame_2}
-    , world_points{world_points}
+    : frame_1{frame_1_in}
+    , frame_2{frame_2_in}
+    , world_points{world_points_in}
     , descriptors{world_descriptors}
 {
 
