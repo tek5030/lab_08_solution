@@ -7,10 +7,10 @@
 #include "opencv2/videoio.hpp"
 #include <memory>
 
-class Lab8
+class LabVO
 {
 public:
-  explicit Lab8(std::shared_ptr<CalibratedCamera> cam);
+  explicit LabVO(std::shared_ptr<CalibratedCamera> cam);
 
   void run();
 
