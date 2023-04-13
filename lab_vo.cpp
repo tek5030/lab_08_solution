@@ -143,6 +143,9 @@ void LabVO::run()
       }
       else if (!active_map)
       {
+        if (!init_map)
+        { throw std::runtime_error("init_map is nullptr. Complete the lab TODO items!"); }
+
         // Set active map.
         active_map = init_map;
         active_keyframe = active_map->frame_2;
